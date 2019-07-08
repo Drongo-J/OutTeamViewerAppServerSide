@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:TcpServerToClientSendSS"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
+    <Grid Background="Black">
+        <StackPanel Width="800" Height="450" Background="White">
+            <Image Width="800" Height="450" Source="{Binding Source,Mode=TwoWay}"></Image>
+        </StackPanel>
     </Grid>
 </Window>

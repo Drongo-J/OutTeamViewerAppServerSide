@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
+using TcpServerToClientSendSS.AddditionalClasses;
+using TcpServerToClientSendSS.ViewModels;
 
 namespace TcpServerToClientSendSS
 {
@@ -20,9 +23,26 @@ namespace TcpServerToClientSendSS
     /// </summary>
     public partial class MainWindow : Window
     {
+        public MainViewModel MainViewModel { get; set; }
+        ScreenShot screenShot = new ScreenShot();
         public MainWindow()
         {
             InitializeComponent();
+            MainViewModel = new MainViewModel();
+            MainViewModel.Source = screenShot.TakeScreenShot(4);
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(0.05);
+            dispatcherTimer.Tick += DispatcherTimer_Tick;
+            dispatcherTimer.Start();
+            DataContext = MainViewModel;
+        }
+        int i = 0;
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            Task.Run(() =>
+            {
+                MainViewModel.Source = screenShot.TakeScreenShot(i++);
+            });
         }
     }
 }
