@@ -25,16 +25,19 @@ namespace TcpServerToClientSendSS
     {
         public MainViewModel MainViewModel { get; set; }
         ScreenShot screenShot = new ScreenShot();
+        public DateTime firstTime { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             MainViewModel = new MainViewModel();
             MainViewModel.Source = screenShot.TakeScreenShot(4);
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(0.05);
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(0.01);
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Start();
+            firstTime = DateTime.Now;
             DataContext = MainViewModel;
+
         }
         int i = 0;
         private void DispatcherTimer_Tick(object sender, EventArgs e)
@@ -43,6 +46,7 @@ namespace TcpServerToClientSendSS
             {
                 MainViewModel.Source = screenShot.TakeScreenShot(i++);
             });
+            MainViewModel.Timer = (firstTime-DateTime.Now).ToString();
         }
     }
 }

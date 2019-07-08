@@ -23,6 +23,15 @@ namespace TcpServerToClientSendSS.ViewModels
                 OnPropertyChanged(new PropertyChangedEventArgs(nameof(Source)));
             }
         }
+        private string timer;
+
+        public string Timer
+        {
+            get { return timer; }
+            set { timer = value;
+                OnPropertyChanged(new PropertyChangedEventArgs(nameof(Timer)));
+            }
+        }
 
     }
 }

@@ -7,8 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid Background="Black">
-        <StackPanel Width="800" Height="450" Background="White">
-            <Image Width="800" Height="450" Source="{Binding Source,Mode=TwoWay}"></Image>
+        <StackPanel Width="800" Height="450" Background="White" Orientation="Horizontal">
+            <Image Width="600" Height="450" Source="{Binding Source,Mode=TwoWay}"></Image>
+            <Label Width="200" Height="50" Content="{Binding Timer}"></Label>
         </StackPanel>
     </Grid>
 </Window>
