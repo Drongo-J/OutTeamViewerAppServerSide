@@ -16,9 +16,9 @@ namespace TcpServerToClientSendSS.AddditionalClasses
             using (Graphics g = Graphics.FromImage(bmp))
             {
                 g.CopyFromScreen(0, 0, 0, 0, Screen.PrimaryScreen.Bounds.Size);
-                bmp.Save(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + count.ToString() + ".png");  // saves the image
+                bmp.Save(@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + count.ToString() + ".png");  // saves the image
             }
-            var source = @"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + count.ToString() + ".png";
+            var source = @"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + count.ToString() + ".png";
             return source;
         }
         //static void Main(string[] args)

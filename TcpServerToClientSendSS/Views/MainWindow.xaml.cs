@@ -52,7 +52,7 @@ namespace TcpServerToClientSendSS
 
                 for (int i3 = i2; i3 < i; i3++)
                 {
-                    File.Delete(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + i3.ToString() + ".png");
+                    File.Delete(@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + i3.ToString() + ".png");
                 }
                 i2 = i;
             });
