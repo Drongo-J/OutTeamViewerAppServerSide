@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,21 +33,50 @@ namespace TcpServerToClientSendSS
             MainViewModel = new MainViewModel();
             MainViewModel.Source = screenShot.TakeScreenShot(4);
             DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(0.01);
+            dispatcherTimer.Interval = TimeSpan.FromSeconds(0.02);
             dispatcherTimer.Tick += DispatcherTimer_Tick;
             dispatcherTimer.Start();
+            DispatcherTimer dispatcherTimerForDeleting = new DispatcherTimer();
+            dispatcherTimerForDeleting.Interval = TimeSpan.FromSeconds(0.3);
+            dispatcherTimerForDeleting.Tick += DispatcherTimerForDeleting_Tick;
+            dispatcherTimerForDeleting.Start();
             firstTime = DateTime.Now;
             DataContext = MainViewModel;
 
         }
-        int i = 0;
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
+
+        private void DispatcherTimerForDeleting_Tick(object sender, EventArgs e)
         {
             Task.Run(() =>
             {
-                MainViewModel.Source = screenShot.TakeScreenShot(i++);
+
+                for (int i3 = i2; i3 < i; i3++)
+                {
+                    File.Delete(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + i3.ToString() + ".png");
+                }
+                i2 = i;
             });
-            MainViewModel.Timer = (firstTime-DateTime.Now).ToString();
+
+        }
+
+        int i = 0;
+        int i2 = 0;
+        private void DispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            // if (i >= 4)
+            //{
+            //if(File.Exists(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + (i - 2).ToString() + ".png"))
+            //{
+
+            //File.Delete(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + (i-2).ToString() + ".png");
+            //}
+            //}
+            Task.Run(() =>
+            {
+                MainViewModel.Source = screenShot.TakeScreenShot(i++);
+
+            });
+            MainViewModel.Timer = (firstTime - DateTime.Now).ToString();
         }
     }
 }
