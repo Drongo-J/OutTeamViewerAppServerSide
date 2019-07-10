@@ -25,12 +25,13 @@ namespace TcpServerToClientSendSS.Commands
         public void Execute(object parameter)
         {
             Network network = new Network();
-            Task.Run(() => {
+            Task.Run(() =>
+            {
                 network.StartTcpServer();
             }
             );
 
-     
+
         }
     }
 }

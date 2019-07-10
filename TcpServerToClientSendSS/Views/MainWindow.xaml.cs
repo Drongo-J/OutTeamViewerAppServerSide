@@ -30,40 +30,6 @@ namespace TcpServerToClientSendSS
             InitializeComponent();
             App.MainViewModel = new MainViewModel();
             DataContext = App.MainViewModel;
-
-        }
-        private void DispatcherTimerForDeleting_Tick(object sender, EventArgs e)
-        {
-            Task.Run(() =>
-            {
-
-                for (int i3 = i2; i3 < i; i3++)
-                {
-                    File.Delete(@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + i3.ToString() + ".png");
-                }
-                i2 = i;
-            });
-
-        }
-
-        int i = 0;
-        int i2 = 0;
-        private void DispatcherTimer_Tick(object sender, EventArgs e)
-        {
-            // if (i >= 4)
-            //{
-            //if(File.Exists(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + (i - 2).ToString() + ".png"))
-            //{
-
-            //File.Delete(@"C:\Users\Jama_yw17\source\repos\TcpServerToClientSendSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + (i-2).ToString() + ".png");
-            //}
-            //}
-            Task.Run(() =>
-            {
-                App.MainViewModel.Source = screenShot.TakeScreenShot(i++);
-
-            });
-            App.MainViewModel.Timer = (firstTime - DateTime.Now).ToString();
         }
     }
 }

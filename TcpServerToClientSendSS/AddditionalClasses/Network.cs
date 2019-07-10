@@ -12,84 +12,44 @@ namespace TcpServerToClientSendSS.AddditionalClasses
 {
     public class Network
     {
-
-
         public void StartTcpServer()
         {
             TcpListener server = null;
             try
             {
                 IPAddress localAddr = IPAddress.Parse(NetworkProtocol.IPAddress);
-
-                // TcpListener server = new TcpListener(port);
                 server = new TcpListener(localAddr, NetworkProtocol.TcpPort);
-
-                // Start listening for client requests.
                 server.Start();
-
-                // Buffer for reading data
-                byte[] bytes = new byte[11000000];
-                string data = null;
-
-                // Enter the listening loop.
+                byte[] bytes = new byte[5000000];
                 while (true)
                 {
-                    Console.Write("Waiting for a connection... ");
-
-                    // Perform a blocking call to accept requests.
-                    // You could also user server.AcceptSocket() here.
                     TcpClient client = server.AcceptTcpClient();
-                    Console.WriteLine("Connected!");
-                    data = null;
                     int c = 0;
-
-               
-
-                        while (true)
+                    while (true)
+                    {
+                        // Get a stream object for reading and writing
+                        NetworkStream stream = client.GetStream();
+                        int i;
+                        string path = String.Empty;
+                        // Loop to receive all the data sent by the client.
+                        while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
                         {
-                            // Get a stream object for reading and writing
-                            NetworkStream stream = client.GetStream();
-                            int i;
-                            string path = String.Empty;
-                            // Loop to receive all the data sent by the client.
-                            while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+
+                            ImageHelper imageHelper = new ImageHelper();
+                            path = imageHelper.GetImagePath(bytes, ++c);
+                            
+                            Task.Run(() =>
                             {
-                                // Translate data bytes to a ASCII string.
-                                //data = Encoding.ASCII.GetString(bytes, 0, i);
-                                //Console.WriteLine("Received: {0}", data);
-
-
-                                // Process the data sent by the client.
-                                //data = data.ToUpper();
-
-                                //byte[] msg = Encoding.ASCII.GetBytes(data);
-
-                                // Send back a response.
-                                //stream.Write(msg, 0, msg.Length);
-                                //Console.WriteLine("Sent: {0}", data);
-                                ImageHelper imageHelper = new ImageHelper();
-                                path = imageHelper.GetImagePath(bytes, ++c);
-                            Task.Run(() => {
-
                                 App.Current.Dispatcher.Invoke(() =>
                                 {
 
                                     App.MainViewModel.Source = path;
                                 });
 
-
                             });
-                                //Thread.Sleep(100);
-                            }
-
-
 
                         }
-
-
-
-
-                    // Shutdown and end connection
+                    }
                     client.Close();
                 }
             }
@@ -99,7 +59,6 @@ namespace TcpServerToClientSendSS.AddditionalClasses
             }
             finally
             {
-                // Stop listening for new clients.
                 server.Stop();
             }
         }

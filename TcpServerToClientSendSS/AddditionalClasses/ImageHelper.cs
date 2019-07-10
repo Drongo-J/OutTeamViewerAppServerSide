@@ -7,17 +7,27 @@ using System.Threading.Tasks;
 
 namespace TcpServerToClientSendSS.AddditionalClasses
 {
-   public class ImageHelper
+    public class ImageHelper
     {
 
-        public string GetImagePath(byte[] buffer,int counter)
+        public string GetImagePath(byte[] buffer, int counter)
         {
             ImageConverter ic = new ImageConverter();
-            Image img = (Image)ic.ConvertFrom(buffer);
-            Bitmap bitmap1 = new Bitmap(img);
-            bitmap1.Save($@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\Images\image{counter}.png");
-            var imagepath = $@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\Images\image{counter}.png";
-            return imagepath;
+            var data = ic.ConvertFrom(buffer);
+
+            Image img = data as Image;
+            if (img != null)
+            {
+                Bitmap bitmap1 = new Bitmap(img);
+                bitmap1.Save($@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\Images\image{counter}.png");
+                var imagepath = $@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\Images\image{counter}.png";
+                return imagepath;
+            }
+            else
+            {
+                return String.Empty;
+            }
+
         }
         public byte[] GetBytesOfImage(string path)
         {
