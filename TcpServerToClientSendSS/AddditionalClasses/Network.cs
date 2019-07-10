@@ -4,14 +4,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 
 namespace TcpServerToClientSendSS.AddditionalClasses
 {
-   public class Network
+    public class Network
     {
-        
+
 
         public void StartTcpServer()
         {
@@ -39,44 +40,62 @@ namespace TcpServerToClientSendSS.AddditionalClasses
                     // You could also user server.AcceptSocket() here.
                     TcpClient client = server.AcceptTcpClient();
                     Console.WriteLine("Connected!");
-                    MessageBox.Show("Connected");
                     data = null;
+                    int c = 0;
 
-                    while (true)
-                    {
-                        // Get a stream object for reading and writing
-                        NetworkStream stream = client.GetStream();
+               
 
-                        int i;
-
-                        // Loop to receive all the data sent by the client.
-                        while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                        while (true)
                         {
-                            // Translate data bytes to a ASCII string.
-                            //data = Encoding.ASCII.GetString(bytes, 0, i);
-                            //Console.WriteLine("Received: {0}", data);
-                            ImageHelper imageHelper = new ImageHelper();
-                            var path=imageHelper.GetImagePath(bytes, 1);
-                            App.MainViewModel.Source = path;
-                            // Process the data sent by the client.
-                            //data = data.ToUpper();
+                            // Get a stream object for reading and writing
+                            NetworkStream stream = client.GetStream();
+                            int i;
+                            string path = String.Empty;
+                            // Loop to receive all the data sent by the client.
+                            while ((i = stream.Read(bytes, 0, bytes.Length)) != 0)
+                            {
+                                // Translate data bytes to a ASCII string.
+                                //data = Encoding.ASCII.GetString(bytes, 0, i);
+                                //Console.WriteLine("Received: {0}", data);
 
-                            //byte[] msg = Encoding.ASCII.GetBytes(data);
 
-                            // Send back a response.
-                            //stream.Write(msg, 0, msg.Length);
-                            //Console.WriteLine("Sent: {0}", data);
-                            break;
+                                // Process the data sent by the client.
+                                //data = data.ToUpper();
+
+                                //byte[] msg = Encoding.ASCII.GetBytes(data);
+
+                                // Send back a response.
+                                //stream.Write(msg, 0, msg.Length);
+                                //Console.WriteLine("Sent: {0}", data);
+                                ImageHelper imageHelper = new ImageHelper();
+                                path = imageHelper.GetImagePath(bytes, ++c);
+                            Task.Run(() => {
+
+                                App.Current.Dispatcher.Invoke(() =>
+                                {
+
+                                    App.MainViewModel.Source = path;
+                                });
+
+
+                            });
+                                //Thread.Sleep(100);
+                            }
+
+
+
                         }
 
-                    }
+
+
+
                     // Shutdown and end connection
                     client.Close();
                 }
             }
             catch (SocketException e)
             {
-                Console.WriteLine("SocketException: {0}", e);
+                MessageBox.Show(e.Message);
             }
             finally
             {

@@ -29,16 +29,6 @@ namespace TcpServerToClientSendSS
         {
             InitializeComponent();
             App.MainViewModel = new MainViewModel();
-            //MainViewModel.Source = screenShot.TakeScreenShot(4);
-            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            //dispatcherTimer.Interval = TimeSpan.FromSeconds(0.03);
-            //dispatcherTimer.Tick += DispatcherTimer_Tick;
-            //dispatcherTimer.Start();
-            //DispatcherTimer dispatcherTimerForDeleting = new DispatcherTimer();
-            //dispatcherTimerForDeleting.Interval = TimeSpan.FromSeconds(0.3);
-            //dispatcherTimerForDeleting.Tick += DispatcherTimerForDeleting_Tick;
-            //dispatcherTimerForDeleting.Start();
-            //firstTime = DateTime.Now;
             DataContext = App.MainViewModel;
 
         }
