@@ -9,7 +9,6 @@ namespace TcpServerToClientSendSS.AddditionalClasses
 {
    public class ScreenShot
     {
-
         public string TakeScreenShot(int count)
         {
             Bitmap bmp = new Bitmap(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
@@ -21,15 +20,6 @@ namespace TcpServerToClientSendSS.AddditionalClasses
             var source = @"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\" + "screenshot" + count.ToString() + ".png";
             return source;
         }
-        //static void Main(string[] args)
-        //{
-        //    DateTime dateTime = DateTime.Now;
-        //    for (int i = 0; i < 20; i++)
-        //    {
-        //        takeScreenShot(i);
-        //    }
-        //    DateTime dateTime2 = DateTime.Now;
-        //    Console.WriteLine(dateTime2.Millisecond - dateTime.Millisecond);
-        //}
+
     }
 }

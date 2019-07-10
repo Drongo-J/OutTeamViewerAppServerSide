@@ -16,7 +16,6 @@ using System.Windows.Shapes;
 using System.Windows.Threading;
 using TcpServerToClientSendSS.AddditionalClasses;
 using TcpServerToClientSendSS.ViewModels;
-
 namespace TcpServerToClientSendSS
 {
     /// <summary>
@@ -24,27 +23,25 @@ namespace TcpServerToClientSendSS
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainViewModel MainViewModel { get; set; }
         ScreenShot screenShot = new ScreenShot();
         public DateTime firstTime { get; set; }
         public MainWindow()
         {
             InitializeComponent();
-            MainViewModel = new MainViewModel();
-            MainViewModel.Source = screenShot.TakeScreenShot(4);
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
-            dispatcherTimer.Interval = TimeSpan.FromSeconds(0.02);
-            dispatcherTimer.Tick += DispatcherTimer_Tick;
-            dispatcherTimer.Start();
-            DispatcherTimer dispatcherTimerForDeleting = new DispatcherTimer();
-            dispatcherTimerForDeleting.Interval = TimeSpan.FromSeconds(0.3);
-            dispatcherTimerForDeleting.Tick += DispatcherTimerForDeleting_Tick;
-            dispatcherTimerForDeleting.Start();
-            firstTime = DateTime.Now;
-            DataContext = MainViewModel;
+            App.MainViewModel = new MainViewModel();
+            //MainViewModel.Source = screenShot.TakeScreenShot(4);
+            //DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            //dispatcherTimer.Interval = TimeSpan.FromSeconds(0.03);
+            //dispatcherTimer.Tick += DispatcherTimer_Tick;
+            //dispatcherTimer.Start();
+            //DispatcherTimer dispatcherTimerForDeleting = new DispatcherTimer();
+            //dispatcherTimerForDeleting.Interval = TimeSpan.FromSeconds(0.3);
+            //dispatcherTimerForDeleting.Tick += DispatcherTimerForDeleting_Tick;
+            //dispatcherTimerForDeleting.Start();
+            //firstTime = DateTime.Now;
+            DataContext = App.MainViewModel;
 
         }
-
         private void DispatcherTimerForDeleting_Tick(object sender, EventArgs e)
         {
             Task.Run(() =>
@@ -73,10 +70,10 @@ namespace TcpServerToClientSendSS
             //}
             Task.Run(() =>
             {
-                MainViewModel.Source = screenShot.TakeScreenShot(i++);
+                App.MainViewModel.Source = screenShot.TakeScreenShot(i++);
 
             });
-            MainViewModel.Timer = (firstTime - DateTime.Now).ToString();
+            App.MainViewModel.Timer = (firstTime - DateTime.Now).ToString();
         }
     }
 }

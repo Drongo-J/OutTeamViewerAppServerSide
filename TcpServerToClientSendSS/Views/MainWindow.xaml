@@ -5,11 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TcpServerToClientSendSS"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid Background="Black">
-        <StackPanel Width="800" Height="450" Background="White" Orientation="Horizontal">
-            <Image Width="600" Height="450" Source="{Binding Source,Mode=TwoWay}"></Image>
-            <Label Width="200" Height="50" Content="{Binding Timer}"></Label>
+        Title="MainWindow" Height="600" Width="1200" WindowStartupLocation="CenterScreen">
+    <Grid>
+        <StackPanel>
+            <StackPanel Width="1150" Height="450" Background="White" Orientation="Horizontal">
+                <Image Width="1100" Height="450" Source="{Binding Source,Mode=TwoWay}"></Image>
+                
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBox Width="200" Height="50" FontSize="18" Text="{Binding IpAddress}"></TextBox>
+            <Button Width="200" Height="50" HorizontalAlignment="Right" Content="Connect" 
+                    Command="{Binding ConnectCommand}"
+                    FontSize="18"></Button>
+                <Label Width="150" Height="50" Content="{Binding Timer}"></Label>
+            </StackPanel>
         </StackPanel>
+        
     </Grid>
 </Window>
