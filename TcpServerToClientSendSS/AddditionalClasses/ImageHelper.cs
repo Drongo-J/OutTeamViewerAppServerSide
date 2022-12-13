@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,8 +20,11 @@ namespace TcpServerToClientSendSS.AddditionalClasses
             if (img != null)
             {
                 Bitmap bitmap1 = new Bitmap(img);
-                bitmap1.Save($@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\Images\image{counter}.png");
-                var imagepath = $@"C:\Users\Documents\source\repos\TspClientToServerSnedSS\TcpServerToClientSendSS\bin\Debug\Images\image{counter}.png";
+
+                var path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Images");
+                Directory.CreateDirectory(path);
+                bitmap1.Save($@"{path}\image{counter}.png");
+                var imagepath = $@"{path}\image{counter}.png";
                 return imagepath;
             }
             else
