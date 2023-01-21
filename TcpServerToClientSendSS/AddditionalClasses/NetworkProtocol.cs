@@ -9,6 +9,6 @@ namespace TcpServerToClientSendSS.AddditionalClasses
   public static class NetworkProtocol
     {      
         public static int TcpPort= 27001;
-        public static string IPAddress = "10.1.18.39";
+        public static string IPAddress = "10.2.11.19";
     }
 }

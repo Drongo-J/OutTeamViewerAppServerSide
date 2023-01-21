@@ -27,6 +27,8 @@ namespace TcpServerToClientSendSS.AddditionalClasses
                     int c = 0;
                     while (true)
                     {
+
+                        // we can add foreach
                         // Get a stream object for reading and writing
                         NetworkStream stream = client.GetStream();
                         int i;
@@ -42,12 +44,10 @@ namespace TcpServerToClientSendSS.AddditionalClasses
                             {
                                 App.Current.Dispatcher.Invoke(() =>
                                 {
-
                                     App.MainViewModel.Source = path;
                                 });
 
                             });
-
                         }
                     }
                     client.Close();

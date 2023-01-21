@@ -31,5 +31,10 @@ namespace TcpServerToClientSendSS
             App.MainViewModel = new MainViewModel();
             DataContext = App.MainViewModel;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
